@@ -105,8 +105,8 @@ def run_action() -> None:
         git.push("--set-upstream", "origin", "--force", branch)
 
     env = "stable" if not testing else "testing"
-    pr_title = f"Update {plugin_name}"
-    if not testing:
+    pr_title = f"Update {plugin_name} ({env})"
+    if testing:
         pr_title = f"[Testing] {pr_title}"
     pr_body = "\n".join(message.splitlines()[2:])
 
@@ -133,7 +133,7 @@ def run_action() -> None:
 
     log.info("Adding and committing")
     git.add("--all")
-    git.commit("--all", "-m", f"Update {plugin_name} {env}")
+    git.commit("--all", "-m", f"Update {plugin_name}")
 
     log.info("Pushing to origin")
     git.push("--force", "--set-upstream", "origin", branch)
