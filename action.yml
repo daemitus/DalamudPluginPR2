@@ -1,0 +1,33 @@
+# dalamud_plugin_pr2.yml
+name: DalamudPlugin PR (2)
+description: Create a PR at goatcorp/DalamudPluginsD17 with your build artifact.
+inputs:
+  enabled:
+    description: Enable or disable the entire dalamud_plugin_pr2. This can be true/false or a partial string searched for within the commit message.
+    default: "[PR]"
+    required: false
+  testing:
+    description: If the toml should be update in the testing folder instead of stable. This can be true/false or a partial string searched for within the commit message.
+    default: "[TEST]"
+    required: false
+  repository:
+    description: Repository where your manifest PR will originate from.
+    default: ${{ github.repository_owner }}/DalamudPluginsD17
+    required: false
+  pr_repository:
+    description: Repository where the PR will be created.
+    default: goatcorp/DalamudPluginsD17
+    required: false
+  pr_branch:
+    description: Branch to merge your PR into.
+    default: main
+    required: false
+  token:
+    description: Personal access token to authenticate with GitHub.
+    required: true
+  plugin_name:
+    description: Name of your plugin in the manifest.toml path.
+    required: true
+runs:
+  using: docker
+  image: Dockerfile

@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "dalamud_plugin_pr2"
+version = "0.0.1"
+description = "GitHub action to facilitate D17 Dalamud plugin PRs"
+authors = ["Daemitus <daemitus@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = "^1.9.1"
+PyGithub = "^1.55"
+sh = "^1.14.3"
+toml = "^0.10.2"
+
+[tool.poetry.dev-dependencies]
+black = "^22.6.0"
+isort = "^5.10.1"
+pre-commit = "^2.20.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
