@@ -35,10 +35,10 @@ jobs:
         # testing:
 
         # Repository where your artifact will be committed.
-        # Default: ${{ github.repository_owner }}/DalamudPlugins
+        # Default: ${{ github.repository_owner }}/DalamudPluginsD17
         # repository:
 
         # Repository where the PR will be created.
-        # Default: goatcorp/DalamudPlugins
+        # Default: goatcorp/DalamudPluginsD17
         # pr_repository:
 ```
