@@ -104,7 +104,7 @@ def run_action() -> None:
         git.checkout(branch)
         git.push("--set-upstream", "origin", "--force", branch)
 
-    env = "stable" if not testing else "testing"
+    env = "stable" if not testing else f"testing/{config.pr_testing_folder}"
     pr_title = f"Update {plugin_name} ({env})"
     if testing:
         pr_title = f"[Testing] {pr_title}"
@@ -112,23 +112,22 @@ def run_action() -> None:
 
     # Update the manifest where necessary
     manifest_path = Path(f"repo/{env}/{plugin_name}/manifest.toml")
-    if manifest_path.exists():
-        log.info("Updating manifest")
-        manifest = toml.loads(manifest_path.read_text())
-    else:
-        log.warning("Creating a WIP pull request, please fill in your manifest.toml")
-        manifest_path.parent.mkdir(parents=True)
-        pr_title = f"[WIP] {pr_title}"
-        manifest = {
-            "plugin": {
-                "repository": f"https://{config.gh_server_url}/{config.gh_repository}.git",
-                "owners": ["CHANGE ME"],
-                "project_path": "CHANGE ME",
-            }
-        }
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
 
-    manifest["plugin"]["commit"] = config.gh_commit_hash
-    manifest["plugin"]["changelog"] = pr_body
+    owners = config.plugin_owners.split(",")
+    owners = [owner.strip() for owner in owners]
+    owners = list(filter(None, owners))
+
+    manifest = {
+        "plugin": {
+            "repository": f"https://{config.gh_server_url}/{config.gh_repository}.git",
+            "owners": owners,
+            "project_path": config.project_path,
+            "commit": config.gh_commit_hash,
+            "changelog": pr_body,
+        }
+    }
+
     manifest_path.write_text(toml.dumps(manifest))
 
     log.info("Adding and committing")

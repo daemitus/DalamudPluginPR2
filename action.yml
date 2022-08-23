@@ -22,11 +22,21 @@ inputs:
     description: Branch to merge your PR into.
     default: main
     required: false
+  pr_testing_folder:
+    description: The folder to merge testing plugins into.
+    default: live
+    required: false
   token:
     description: Personal access token to authenticate with GitHub.
     required: true
   plugin_name:
     description: Name of your plugin in the manifest.toml path.
+    required: true
+  plugin_owners:
+    description: Comma delimited author names, responsible for plugin development.
+    required: true
+  project_path:
+    description: The directory path your csproj resides in.
     required: true
 runs:
   using: docker
