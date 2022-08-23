@@ -120,7 +120,7 @@ def run_action() -> None:
 
     manifest = {
         "plugin": {
-            "repository": f"https://{config.gh_server_url}/{config.gh_repository}.git",
+            "repository": f"{config.gh_server_url}/{config.gh_repository}.git",
             "owners": owners,
             "project_path": config.project_path,
             "commit": config.gh_commit_hash,
